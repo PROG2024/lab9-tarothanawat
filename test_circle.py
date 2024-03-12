@@ -8,5 +8,31 @@ Write unit tests as described in README.md.
 
 """
 from circle import Circle
+import unittest
+from math import pi
 
 # TODO write 3 tests as described above
+
+class CircleTest(unittest.TestCase):
+
+    def setUp(self):
+        self.c1 = Circle(3)
+        self.c2 = Circle(4)
+        self.c3 = Circle(0)
+        self.assertEqual(3, self.c1.get_radius())
+        self.assertEqual(4, self.c2.get_radius())
+
+    def test_add_area_positive(self):
+        """ test adding two circles with positive radius"""
+        result_circle = self.c1.add_area(self.c2)
+        self.assertEqual(5, result_circle.get_radius())
+        self.assertEqual(pi*5**2, result_circle.get_area())
+
+    def test_add_area_zero(self):
+        """ test adding two circles when one has a radius of zero"""
+        result_circle = self.c3.add_area(self.c1)
+        self.assertEqual(3, result_circle.get_radius())
+        self.assertEqual(pi*3**2, result_circle.get_area())
+
+
+

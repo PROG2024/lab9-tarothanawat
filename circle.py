@@ -30,7 +30,6 @@ class Circle:
         Circle(5.0)
         >>> c3.add_area(c1)
         Circle(3.0)
-
         """
         r1 = self.get_radius()
         r2 = circle.get_radius()

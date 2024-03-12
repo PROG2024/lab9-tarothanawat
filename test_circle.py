@@ -33,5 +33,12 @@ class CircleTest(unittest.TestCase):
         self.assertEqual(3, result_circle.get_radius())
         self.assertEqual(pi*3**2, result_circle.get_area())
 
+    def test_r_is_not_negative(self):
+        """ test if radius is not negative """
+        with self.assertRaises(ValueError):
+            Circle(-1)
+            Circle(-5)
+            Circle(-10)
+        Circle(10)
 
 

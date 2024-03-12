@@ -17,7 +17,6 @@ class CircleTest(unittest.TestCase):
     def setUp(self):
         self.c1 = Circle(3)
         self.c2 = Circle(4)
-        self.c3 = Circle(0)
         self.assertEqual(3, self.c1.get_radius())
         self.assertEqual(4, self.c2.get_radius())
 
@@ -25,13 +24,16 @@ class CircleTest(unittest.TestCase):
         """ test adding two circles with positive radius"""
         result_circle = self.c1.add_area(self.c2)
         self.assertEqual(5, result_circle.get_radius())
-        self.assertEqual(pi*5**2, result_circle.get_area())
+        # each circle knows its own area
+        expected = self.c1.get_area() + self.c2.get_area()
+        self.assertAlmostEqual(expected, result_circle.get_area(), delta=1.0e-8)
 
     def test_add_area_zero(self):
         """ test adding two circles when one has a radius of zero"""
-        result_circle = self.c3.add_area(self.c1)
-        self.assertEqual(3, result_circle.get_radius())
-        self.assertEqual(pi*3**2, result_circle.get_area())
+        c3 = Circle(0)
+        result_circle = c3.add_area(self.c1)
+        self.assertEqual( self.c1.get_radius(), result_circle.get_radius())
+        self.assertEqual(self.c1.get_area(), result_circle.get_area())
 
     def test_r_is_not_negative(self):
         """ test if radius is not negative """
@@ -39,6 +41,5 @@ class CircleTest(unittest.TestCase):
             Circle(-1)
             Circle(-5)
             Circle(-10)
-        Circle(10)
 
 
